@@ -31,6 +31,10 @@
           {
             "caption":"Run All Open Tests",
             "command":"run_all_function_tests"
+          },
+          {
+            "caption":"Run All Tests In Schema",
+            "command":"run_schema_test"
           }
         ]
       }
