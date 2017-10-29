@@ -24,9 +24,12 @@ class LoadDatabaseFunctionsCommand(sublime_plugin.WindowCommand):
     output, error = process.communicate()
 
     subdir = [os.path.join(dir,o) for o in os.listdir(dir) if os.path.isdir(os.path.join(dir,o))]
+    subdir.sort()
+
     project_data = {'folders': []}
     for dir in subdir:
         project_data['folders'].append({'path': dir})
+
     self.window.set_project_data(project_data)
     self.window.run_command("refresh_folder_list")
 
