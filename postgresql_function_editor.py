@@ -6,13 +6,7 @@ pfe_settings = None
 def plugin_loaded():
   global pfe_settings,ruby_manager,ruby_cmd,ruby_files_dir
   pfe_settings = sublime.load_settings(SETTINGS_FILE)
-  ruby_cmd = sublime.packages_path() + "/pfe/pfe-1.0.0-osx/pfe"
-  if os.path.isfile(ruby_cmd):
-    pass
-  else:
-    tar = tarfile.open(sublime.packages_path() + '/pfe/pfe-1.0.0-osx.tar.gz')
-    tar.extractall(sublime.packages_path() + '/pfe/')
-    tar.close()
+  ruby_cmd = sublime.packages_path() + "/pfe/pfe"
 
 class LoadDatabaseFunctionsCommand(sublime_plugin.WindowCommand):
   def run(self):
@@ -32,7 +26,7 @@ class LoadDatabaseFunctionsCommand(sublime_plugin.WindowCommand):
 
     self.window.set_project_data(project_data)
     self.window.run_command("refresh_folder_list")
-
+    
     sublime.message_dialog(str(output.decode('ascii')))
 
 class SaveDatabaseFunctionCommand(sublime_plugin.WindowCommand):

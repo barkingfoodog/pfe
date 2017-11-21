@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# Load rvm
+source ~/.bash_profile
+
+if ! command -v rvm &> /dev/null; then
+	echo "RVM required for pfe"
+	exit 1
+fi
+
+# Go to the pfe directory
+pfe_root=$(dirname "${0}")
+cd "${pfe_root}"
+
+if ! command -v bundle &> /dev/null; then
+	echo "Loading bundler and gems"
+	gem install bundler
+	bundle
+fi
+
+ruby pfe.rb ${@}
