@@ -15,14 +15,6 @@ def time
   puts "functions loaded\ntook #{(Time.now - start).round(4)} seconds"
 end
 
-def file_type(lang)
-  case lang
-  when '14' then 'sql'
-  when '183355' then 'plperlu'
-  else 'plpgsql'
-  end
-end
-
 def volatile_type(volatile)
   case volatile
   when 's' then 'STABLE'
@@ -128,7 +120,7 @@ when 'create'
 
     schemas = @connection.exec("SELECT schema_name FROM information_schema.schemata WHERE (schema_owner=$1 AND schema_name not in ('contrib','pgtap','pgagent')) OR schema_name='public';", [@user])
     @select = 'nspname as schema,provolatile as volatile, prosrc as body,
-               proname as name,procost as cost,prolang as lang,
+               proname as name,procost as cost, l.lanname as lang,
                pg_catalog.pg_get_function_arguments(p.oid) as args,
                pg_get_function_identity_arguments(p.oid) as drop_args,
                pg_catalog.pg_get_function_result(p.oid) as return_type'
@@ -136,9 +128,9 @@ when 'create'
     schemas.each { |schema| Dir.mkdir(schema['schema_name'], 0755) }
 
     schemas.each do |schema|
-      functions = @connection.exec("SELECT #{@select} FROM pg_catalog.pg_proc p LEFT JOIN pg_catalog.pg_namespace n ON n.oid = p.pronamespace WHERE  n.nspname ='#{schema['schema_name']}';")
+      functions = @connection.exec("SELECT #{@select} FROM pg_catalog.pg_proc p LEFT JOIN pg_catalog.pg_namespace n ON n.oid = p.pronamespace JOIN pg_catalog.pg_language l ON l.oid = p.prolang WHERE  n.nspname ='#{schema['schema_name']}';")
       functions.each do |function|
-        file_type = file_type(function['lang'])
+        file_type = function['lang']
         post_text = "$BODY$\nLANGUAGE '#{file_type}' #{volatile_type(function['volatile'])}\nCOST #{function['cost']};"
         Dir.chdir(@function_directory + '/' + function['schema'])
         header = "-- DROP FUNCTION IF EXISTS  #{function['schema']}.#{function['name']}(#{function['drop_args']}) CASCADE;\n\n"
