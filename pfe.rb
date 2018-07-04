@@ -118,7 +118,7 @@ when 'create'
     @connection = test_connection(@host, @database, @port, @user)
     return @connection if @connection.is_a?(String)
 
-    schemas = @connection.exec("SELECT schema_name FROM information_schema.schemata WHERE (schema_owner=$1 AND schema_name not in ('contrib','pgtap','pgagent')) OR schema_name='public';", [@user])
+    schemas = @connection.exec("SELECT schema_name FROM information_schema.schemata WHERE (schema_owner=$1 AND schema_name not in ('contrib', 'dblink', 'information_schema', 'pgtap', 'pgagent', 'pgcrypto', 'pg_catalog', 'pg_temp_1', 'pg_toast', 'pg_toast_temp_1')) OR schema_name='public';", [@user])
     @select = 'nspname as schema,provolatile as volatile, prosrc as body,
                proname as name,procost as cost, l.lanname as lang,
                pg_catalog.pg_get_function_arguments(p.oid) as args,
