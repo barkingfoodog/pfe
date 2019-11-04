@@ -70,6 +70,7 @@ Plugin for [Sublime Text 3](http://www.sublimetext.com) that helps you work dire
 * [Sublime Text 3](http://www.sublimetext.com) and [Package Manager](https://packagecontrol.io),
 * [pgTAP](http://pgtap.org) for pgTAP testing
 * passwordless access to database either through hba_conf file or .pgpass file.
+* [rvm](https://rvm.io)
 
 ## How to install on a Mac
 
@@ -78,13 +79,19 @@ Plugin for [Sublime Text 3](http://www.sublimetext.com) that helps you work dire
 
 ```bash
 cd ~/Library/Application\ Support/Sublime\ Text\ 3/Packages
-git clone https://github.com/danmanstx/pfe.git
+git clone https://github.com/barkingfoodog/pfe.git
+cd pfe
+```
+
+If necessary, follow rvm's prompts to install ruby and create the `pfe` gemset. If necessary, cd out and back into pfe, then run:
+```bash
+gem install bundler
+bundle
 ```
 
 * before closing sublime add `pfe` to your `installed packages` located here:<br>
   `Sublime text --> Preferences --> Package Settings --> Package Control --> Settings - User`
 
-**COMING SOON** install with [Package Control](http://wbond.net/sublime_packages/package_control)
 
 ## Options
 
@@ -113,7 +120,6 @@ Go to `Preferences` -> `Package Settings` -> `Postgresql Function Editor`->`Sett
 * Inspired by [Suran Systems](http://www.suran.com) Textmate Postgresql Bundle.
 * Quick Switching Inspired by [Ruby Test](https://github.com/maltize/sublime-text-2-ruby-tests).
 * Quick File Creation Inspired By [Sublime Quick File Creator](https://github.com/noklesta/SublimeQuickFileCreator)
-* No more ruby or gems! Thanks to [Traveling Ruby](http://phusion.github.io/traveling-ruby/)
 
 ## Roadmap
 
