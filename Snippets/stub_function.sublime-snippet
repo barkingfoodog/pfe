@@ -1,5 +1,5 @@
 <snippet>
-    <content><![CDATA[PERFORM testing.stubFunction('${1:dialog}');]]></content>
+    <content><![CDATA[PERFORM stub.function('${1:dialog}');]]></content>
     <!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
     <tabTrigger>stub</tabTrigger>
     <!-- Optional: Set a scope to limit where the snippet will trigger -->
