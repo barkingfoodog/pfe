@@ -3,8 +3,8 @@
 # Load rvm
 source ~/.bash_profile
 
-if ! command -v rvm &> /dev/null; then
-	echo "RVM required for pfe"
+if ! (command -v rvm || command -v mise) &> /dev/null; then
+	echo "RVM or mise required for pfe"
 	exit 1
 fi
 
